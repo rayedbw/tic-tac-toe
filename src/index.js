@@ -61,10 +61,27 @@ class Game extends React.Component {
     });
   }
 
+  moveTo(i) {
+    const history = this.state.history.slice(0, i + 1);
+    this.setState({
+      history: history,
+      xIsNext: i % 2 === 0,
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    const moves = history.map((_, index) => {
+      const desc = index ? "Go to move #" + index : "Go to game start";
+      return (
+        <li key={index}>
+          <button onClick={() => this.moveTo(index)}>{desc}</button>
+        </li>
+      );
+    });
 
     let status;
     if (winner) {
@@ -80,7 +97,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
