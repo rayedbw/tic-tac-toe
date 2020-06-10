@@ -9,7 +9,7 @@ const Square = props => (
 );
 
 const Board = props => (
-  <div className="board">
+  <>
     {[...Array(3)].map((_, rowIndex) => (
       <div key={rowIndex} className="board-row">
         {[...Array(3)].map((_, colIndex) => {
@@ -24,7 +24,7 @@ const Board = props => (
         })}
       </div>
     ))}
-  </div>
+  </>
 );
 
 class Game extends React.Component {
