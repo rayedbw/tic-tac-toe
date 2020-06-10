@@ -8,31 +8,24 @@ const Square = props => (
   </button>
 );
 
-const Board = props => {
-  const renderSquare = i => {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
-  };
-
-  return (
-    <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+const Board = props => (
+  <div className="board">
+    {[...Array(3)].map((_, rowIndex) => (
+      <div key={rowIndex} className="board-row">
+        {[...Array(3)].map((_, colIndex) => {
+          let value = 3 * rowIndex + colIndex;
+          return (
+            <Square
+              key={colIndex}
+              value={props.squares[value]}
+              onClick={() => props.onClick(value)}
+            />
+          );
+        })}
       </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  );
-};
+    ))}
+  </div>
+);
 
 class Game extends React.Component {
   constructor(props) {
